@@ -1,89 +1,98 @@
-body {
-  font-family: 'Roboto', sans-serif;
-  background: url('https://images.unsplash.com/photo-1588776814546-1c9460a6b089?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
-  background-size: cover;
-  color: #333;
-  margin: 0;
-  padding: 0;
+let medicines = JSON.parse(localStorage.getItem("medicines")) || [];
+
+// Toggle visibility of a box
+function toggleBox(boxId) {
+  const box = document.getElementById(boxId);
+  box.classList.toggle("hidden");
 }
 
-.container {
-  background: rgba(255,255,255,0.95);
-  margin: 20px auto;
-  padding: 20px;
-  max-width: 900px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+// Add medicine
+function addMedicine() {
+  const name = document.getElementById("name").value.trim();
+  const expiry = document.getElementById("expiry").value;
+  const demand = document.getElementById("demand").value.trim();
+  const offer = document.getElementById("offer").value.trim();
+
+  if (!name || !expiry || !demand) {
+    alert("Please fill all required fields");
+    return;
+  }
+
+  medicines.push({ name, expiry, demand, offer });
+  localStorage.setItem("medicines", JSON.stringify(medicines));
+
+  document.getElementById("name").value = "";
+  document.getElementById("expiry").value = "";
+  document.getElementById("demand").value = "";
+  document.getElementById("offer").value = "";
+
+  populateSelect();
+  renderTable();
+  document.getElementById("tableBox").classList.remove("hidden");
 }
 
-h1, h2 {
-  text-align: center;
+// Get status for expiry
+function getStatus(expiryDate) {
+  const today = new Date();
+  const exp = new Date(expiryDate);
+  const diffDays = (exp - today) / (1000 * 60 * 60 * 24);
+
+  if (diffDays < 0) return `<span class="expired">Expired</span>`;
+  if (diffDays <= 30) return `<span class="warning">Near Expiry</span>`;
+  return `<span class="safe">Safe</span>`;
 }
 
-.actionButtons {
-  text-align: center;
-  margin-bottom: 20px;
+// Delete medicine
+function deleteMedicine(index) {
+  medicines.splice(index, 1);
+  localStorage.setItem("medicines", JSON.stringify(medicines));
+  populateSelect();
+  renderTable();
+  hideDetails();
 }
 
-.actionButtons button {
-  padding: 10px 20px;
-  margin: 5px;
-  font-size: 16px;
+// Populate dropdown for search
+function populateSelect() {
+  const select = document.getElementById("medicineSelect");
+  select.innerHTML = `<option value="">-- Select Medicine --</option>`;
+  medicines.forEach((m, i) => {
+    select.innerHTML += `<option value="${i}">${m.name}</option>`;
+  });
 }
 
-.box {
-  margin: 15px 0;
-  padding: 15px;
-  background: #f0f0f0;
-  border-radius: 8px;
+// Show medicine details
+function showMedicineDetails(index) {
+  if (index === undefined) {
+    index = document.getElementById("medicineSelect").value;
+    if (index === "") return hideDetails();
+  }
+  const med = medicines[index];
+  const today = new Date();
+  const exp = new Date(med.expiry);
+  const diffDays = Math.floor((exp - today) / (1000*60*60*24));
+
+  let alertMsg = "";
+  if (diffDays < 0) alertMsg = "⚠️ Medicine has expired!";
+  else if (diffDays <= 30) alertMsg = "⚠️ Medicine is near expiry!";
+
+  const content = `
+    <strong>Name:</strong> ${med.name}<br>
+    <strong>Expiry:</strong> ${med.expiry}<br>
+    <strong>Demand:</strong> ${med.demand}<br>
+    <strong>Status:</strong> ${getStatus(med.expiry)}<br>
+    <strong>Offer:</strong> ${med.offer || 'No Offer'}<br>
+    <strong>Alert:</strong> ${alertMsg || 'None'}
+  `;
+  document.getElementById("detailsContent").innerHTML = content;
+  document.getElementById("detailsBox").classList.remove("hidden");
 }
 
-input, select, button {
-  padding: 8px;
-  margin: 5px;
+// Hide details box
+function hideDetails() {
+  document.getElementById("detailsBox").classList.add("hidden");
 }
 
-button {
-  cursor: pointer;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-th, td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
-}
-
-th {
-  background-color: #f2f2f2;
-}
-
-.safe { color: green; font-weight: bold; }
-.warning { color: orange; font-weight: bold; }
-.expired { color: red; font-weight: bold; }
-
-.detailsBox {
-  margin-top: 20px;
-  padding: 15px;
-  border: 2px solid #4CAF50;
-  border-radius: 10px;
-  background: #eafaf1;
-}
-
-.hidden {
-  display: none;
-}
+// Initial render
+populateSelect();
+renderTable();
 
