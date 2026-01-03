@@ -2,34 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Pharma Safe</title>
+  <title>💊 Pharma Safe</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="container">
+    <h1>💊 Pharma Safe – Medicine Manager</h1>
 
-  <h1>💊 Pharma Safe – Medicine Expiry Manager</h1>
+    <!-- Add Medicine Form -->
+    <div class="form">
+      <input type="text" id="name" placeholder="Medicine Name">
+      <input type="date" id="expiry">
+      <input type="number" id="demand" placeholder="Demand">
+      <input type="text" id="offer" placeholder="Offer (optional)">
+      <button onclick="addMedicine()">Add Medicine</button>
+    </div>
 
-  <div class="form">
-    <input type="text" id="name" placeholder="Medicine Name">
-    <input type="date" id="expiry">
-    <input type="number" id="demand" placeholder="Demand">
-    <button onclick="addMedicine()">Add Medicine</button>
+    <!-- Search Box -->
+    <input type="text" id="search" placeholder="Search medicine by name..." onkeyup="renderTable()">
+
+    <!-- Table of Medicines -->
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Expiry Date</th>
+          <th>Demand</th>
+          <th>Status</th>
+          <th>Offer</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+
+    <!-- Medicine Details Box -->
+    <div id="detailsBox" class="detailsBox hidden">
+      <h3>Medicine Details</h3>
+      <p id="detailsContent"></p>
+    </div>
   </div>
-
-  <input type="text" id="search" placeholder="Search medicine..." onkeyup="renderTable()">
-
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Expiry Date</th>
-        <th>Demand</th>
-        <th>Status</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody id="tableBody"></tbody>
-  </table>
 
   <script src="script.js"></script>
 </body>
