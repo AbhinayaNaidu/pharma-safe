@@ -1,82 +1,77 @@
-let medicines = JSON.parse(localStorage.getItem("medicines")) || [];
-
-function addMedicine() {
-  const name = document.getElementById("name").value.trim();
-  const expiry = document.getElementById("expiry").value;
-  const demand = document.getElementById("demand").value.trim();
-  const offer = document.getElementById("offer").value.trim();
-
-  if (!name || !expiry || !demand) {
-    alert("Please fill all required fields");
-    return;
-  }
-
-  medicines.push({ name, expiry, demand, offer });
-  localStorage.setItem("medicines", JSON.stringify(medicines));
-
-  document.getElementById("name").value = "";
-  document.getElementById("expiry").value = "";
-  document.getElementById("demand").value = "";
-  document.getElementById("offer").value = "";
-
-  renderTable();
+body {
+  font-family: 'Roboto', sans-serif;
+  background: url('https://images.unsplash.com/photo-1588776814546-1c9460a6b089?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+  background-size: cover;
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
-function getStatus(expiryDate) {
-  const today = new Date();
-  const exp = new Date(expiryDate);
-  const diffDays = (exp - today) / (1000 * 60 * 60 * 24);
-
-  if (diffDays < 0) return `<span class="expired">Expired</span>`;
-  if (diffDays <= 30) return `<span class="warning">Near Expiry</span>`;
-  return `<span class="safe">Safe</span>`;
+.container {
+  background: rgba(255,255,255,0.95);
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 900px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
 }
 
-function deleteMedicine(index) {
-  medicines.splice(index, 1);
-  localStorage.setItem("medicines", JSON.stringify(medicines));
-  renderTable();
-  hideDetails();
+h1, h2 {
+  text-align: center;
 }
 
-function showDetails(index) {
-  const med = medicines[index];
-  const content = `
-    <strong>Name:</strong> ${med.name} <br>
-    <strong>Expiry:</strong> ${med.expiry} <br>
-    <strong>Demand:</strong> ${med.demand} <br>
-    <strong>Status:</strong> ${getStatus(med.expiry)} <br>
-    <strong>Offer:</strong> ${med.offer ? med.offer : 'No Offer'}
-  `;
-  document.getElementById("detailsContent").innerHTML = content;
-  document.getElementById("detailsBox").classList.remove("hidden");
+.box {
+  margin: 15px 0;
+  padding: 15px;
+  background: #f0f0f0;
+  border-radius: 8px;
 }
 
-function hideDetails() {
-  document.getElementById("detailsBox").classList.add("hidden");
+input, select, button {
+  padding: 8px;
+  margin: 5px;
 }
 
-function renderTable() {
-  const tbody = document.getElementById("tableBody");
-  const search = document.getElementById("search").value.toLowerCase();
-  tbody.innerHTML = "";
-
-  medicines
-    .filter(m => m.name.toLowerCase().includes(search))
-    .sort((a, b) => new Date(a.expiry) - new Date(b.expiry))
-    .forEach((m, i) => {
-      tbody.innerHTML += `
-        <tr onclick="showDetails(${i})">
-          <td>${m.name}</td>
-          <td>${m.expiry}</td>
-          <td>${m.demand}</td>
-          <td>${getStatus(m.expiry)}</td>
-          <td>${m.offer ? m.offer : 'No Offer'}</td>
-          <td><button onclick="event.stopPropagation(); deleteMedicine(${i})">Delete</button></td>
-        </tr>
-      `;
-    });
+button {
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
 }
 
-renderTable();
+button:hover {
+  background-color: #45a049;
+}
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.safe { color: green; font-weight: bold; }
+.warning { color: orange; font-weight: bold; }
+.expired { color: red; font-weight: bold; }
+
+.detailsBox {
+  margin-top: 20px;
+  padding: 15px;
+  border: 2px solid #4CAF50;
+  border-radius: 10px;
+  background: #eafaf1;
+}
+
+.hidden {
+  display: none;
+}
