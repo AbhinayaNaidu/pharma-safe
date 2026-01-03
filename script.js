@@ -1,21 +1,23 @@
 let medicines = JSON.parse(localStorage.getItem("medicines")) || [];
 
 function addMedicine() {
-  const name = document.getElementById("name").value;
+  const name = document.getElementById("name").value.trim();
   const expiry = document.getElementById("expiry").value;
-  const demand = document.getElementById("demand").value;
+  const demand = document.getElementById("demand").value.trim();
+  const offer = document.getElementById("offer").value.trim();
 
   if (!name || !expiry || !demand) {
-    alert("Please fill all fields");
+    alert("Please fill all required fields");
     return;
   }
 
-  medicines.push({ name, expiry, demand });
+  medicines.push({ name, expiry, demand, offer });
   localStorage.setItem("medicines", JSON.stringify(medicines));
 
   document.getElementById("name").value = "";
   document.getElementById("expiry").value = "";
   document.getElementById("demand").value = "";
+  document.getElementById("offer").value = "";
 
   renderTable();
 }
@@ -34,6 +36,24 @@ function deleteMedicine(index) {
   medicines.splice(index, 1);
   localStorage.setItem("medicines", JSON.stringify(medicines));
   renderTable();
+  hideDetails();
+}
+
+function showDetails(index) {
+  const med = medicines[index];
+  const content = `
+    <strong>Name:</strong> ${med.name} <br>
+    <strong>Expiry:</strong> ${med.expiry} <br>
+    <strong>Demand:</strong> ${med.demand} <br>
+    <strong>Status:</strong> ${getStatus(med.expiry)} <br>
+    <strong>Offer:</strong> ${med.offer ? med.offer : 'No Offer'}
+  `;
+  document.getElementById("detailsContent").innerHTML = content;
+  document.getElementById("detailsBox").classList.remove("hidden");
+}
+
+function hideDetails() {
+  document.getElementById("detailsBox").classList.add("hidden");
 }
 
 function renderTable() {
@@ -46,15 +66,17 @@ function renderTable() {
     .sort((a, b) => new Date(a.expiry) - new Date(b.expiry))
     .forEach((m, i) => {
       tbody.innerHTML += `
-        <tr>
+        <tr onclick="showDetails(${i})">
           <td>${m.name}</td>
           <td>${m.expiry}</td>
           <td>${m.demand}</td>
           <td>${getStatus(m.expiry)}</td>
-          <td><button onclick="deleteMedicine(${i})">Delete</button></td>
+          <td>${m.offer ? m.offer : 'No Offer'}</td>
+          <td><button onclick="event.stopPropagation(); deleteMedicine(${i})">Delete</button></td>
         </tr>
       `;
     });
 }
 
 renderTable();
+
