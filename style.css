@@ -3,7 +3,7 @@ body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  background: url('https://images.unsplash.com/photo-1588776814546-1c9460a6b089?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+  background: url('https://t3.ftcdn.net/jpg/07/84/00/38/360_F_784003818_U1c0e0qUvkjc09zdQYlS0ASe79hXDg6M.jpg') no-repeat center center fixed;
   background-size: cover;
   color: #333;
 }
@@ -63,4 +63,5 @@ input, select, button { padding: 8px; margin: 5px; }
 .safe { color: green; font-weight: bold; }
 .warning { color: orange; font-weight: bold; }
 .expired { color: red; font-weight: bold; }
+
 
