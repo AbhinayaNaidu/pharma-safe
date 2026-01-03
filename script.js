@@ -20,6 +20,17 @@ h1, h2 {
   text-align: center;
 }
 
+.actionButtons {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.actionButtons button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+}
+
 .box {
   margin: 15px 0;
   padding: 15px;
@@ -75,3 +86,4 @@ th {
 .hidden {
   display: none;
 }
+
