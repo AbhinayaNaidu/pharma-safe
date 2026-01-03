@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>💊 Pharma Safe</title>
+  <!-- Google Roboto Font -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -16,7 +17,7 @@
       <button onclick="toggleBox('searchBox')">🔍 Search Medicine</button>
     </div>
 
-    <!-- ADD MEDICINE BOX (hidden by default) -->
+    <!-- ADD MEDICINE BOX -->
     <div class="box hidden" id="addBox">
       <h2>Add Medicine</h2>
       <input type="text" id="name" placeholder="Medicine Name">
@@ -26,7 +27,7 @@
       <button onclick="addMedicine()">Add Medicine</button>
     </div>
 
-    <!-- SEARCH MEDICINE BOX (hidden by default) -->
+    <!-- SEARCH MEDICINE BOX -->
     <div class="box hidden" id="searchBox">
       <h2>Search Medicine</h2>
       <select id="medicineSelect" onchange="showMedicineDetails()">
@@ -34,34 +35,13 @@
       </select>
     </div>
 
-    <!-- TABLE OF MEDICINES (hidden by default) -->
-    <div class="box hidden" id="tableBox">
-      <h2>All Medicines</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Expiry</th>
-            <th>Demand</th>
-            <th>Status</th>
-            <th>Offer</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="tableBody"></tbody>
-      </table>
-    </div>
-
-    <!-- DETAILS BOX (hidden by default) -->
+    <!-- DETAILS BOX -->
     <div id="detailsBox" class="detailsBox hidden">
       <h3>Medicine Details</h3>
       <p id="detailsContent"></p>
     </div>
-
   </div>
 
   <script src="script.js"></script>
 </body>
 </html>
-
-
