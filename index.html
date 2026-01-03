@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pharma Safe</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>💊 Pharma Safe – Medicine Expiry Manager</h1>
+
+  <div class="form">
+    <input type="text" id="name" placeholder="Medicine Name">
+    <input type="date" id="expiry">
+    <input type="number" id="demand" placeholder="Demand">
+    <button onclick="addMedicine()">Add Medicine</button>
+  </div>
+
+  <input type="text" id="search" placeholder="Search medicine..." onkeyup="renderTable()">
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Expiry Date</th>
+        <th>Demand</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+  </table>
+
+  <script src="script.js"></script>
+</body>
+</html>
