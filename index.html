@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>💊 Pharma Safe</title>
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -11,8 +10,9 @@
   <div class="container">
     <h1>💊 Pharma Safe – Medicine Manager</h1>
 
-    <!-- Add Medicine Form -->
-    <div class="form">
+    <!-- ADD MEDICINE BOX -->
+    <div class="box" id="addBox">
+      <h2>Add Medicine</h2>
       <input type="text" id="name" placeholder="Medicine Name">
       <input type="date" id="expiry">
       <input type="number" id="demand" placeholder="Demand">
@@ -20,29 +20,38 @@
       <button onclick="addMedicine()">Add Medicine</button>
     </div>
 
-    <!-- Search Box -->
-    <input type="text" id="search" placeholder="Search medicine by name..." onkeyup="renderTable()">
+    <!-- SEARCH MEDICINE BOX -->
+    <div class="box" id="searchBox">
+      <h2>Search Medicine</h2>
+      <select id="medicineSelect" onchange="showMedicineDetails()">
+        <option value="">-- Select Medicine --</option>
+      </select>
+    </div>
 
-    <!-- Table of Medicines -->
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Expiry Date</th>
-          <th>Demand</th>
-          <th>Status</th>
-          <th>Offer</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody id="tableBody"></tbody>
-    </table>
+    <!-- TABLE OF MEDICINES -->
+    <div class="box" id="tableBox">
+      <h2>All Medicines</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Expiry</th>
+            <th>Demand</th>
+            <th>Status</th>
+            <th>Offer</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
 
-    <!-- Medicine Details Box -->
+    <!-- DETAILS BOX -->
     <div id="detailsBox" class="detailsBox hidden">
       <h3>Medicine Details</h3>
       <p id="detailsContent"></p>
     </div>
+
   </div>
 
   <script src="script.js"></script>
