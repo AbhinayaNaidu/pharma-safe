@@ -28,12 +28,21 @@
     </div>
 
     <!-- SEARCH MEDICINE BOX -->
-    <div class="box hidden" id="searchBox">
-      <h2>Search Medicine</h2>
-      <select id="medicineSelect" onchange="showMedicineDetails()">
-        <option value="">-- Select Medicine --</option>
-      </select>
-    </div>
+    <div id="searchBox" class="hidden">
+  <!-- Search Bar -->
+  <input type="text" id="searchInput" placeholder="Search medicine..." oninput="searchMedicine()">
+
+  <!-- Dropdown -->
+  <select id="medicineSelect" onchange="showMedicineDetails(this.value)">
+    <option value="">-- Select Medicine --</option>
+  </select>
+</div>
+
+<!-- Details Box -->
+<div id="detailsBox" class="hidden">
+  <div id="detailsContent"></div>
+</div>
+
 
     <!-- DETAILS BOX -->
     <div id="detailsBox" class="detailsBox hidden">
@@ -45,4 +54,5 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
