@@ -10,8 +10,14 @@
   <div class="container">
     <h1>💊 Pharma Safe – Medicine Manager</h1>
 
-    <!-- ADD MEDICINE BOX -->
-    <div class="box" id="addBox">
+    <!-- ACTION BUTTONS -->
+    <div class="actionButtons">
+      <button onclick="toggleBox('addBox')">➕ Add Medicine</button>
+      <button onclick="toggleBox('searchBox')">🔍 Search Medicine</button>
+    </div>
+
+    <!-- ADD MEDICINE BOX (hidden by default) -->
+    <div class="box hidden" id="addBox">
       <h2>Add Medicine</h2>
       <input type="text" id="name" placeholder="Medicine Name">
       <input type="date" id="expiry">
@@ -20,16 +26,16 @@
       <button onclick="addMedicine()">Add Medicine</button>
     </div>
 
-    <!-- SEARCH MEDICINE BOX -->
-    <div class="box" id="searchBox">
+    <!-- SEARCH MEDICINE BOX (hidden by default) -->
+    <div class="box hidden" id="searchBox">
       <h2>Search Medicine</h2>
       <select id="medicineSelect" onchange="showMedicineDetails()">
         <option value="">-- Select Medicine --</option>
       </select>
     </div>
 
-    <!-- TABLE OF MEDICINES -->
-    <div class="box" id="tableBox">
+    <!-- TABLE OF MEDICINES (hidden by default) -->
+    <div class="box hidden" id="tableBox">
       <h2>All Medicines</h2>
       <table>
         <thead>
@@ -46,7 +52,7 @@
       </table>
     </div>
 
-    <!-- DETAILS BOX -->
+    <!-- DETAILS BOX (hidden by default) -->
     <div id="detailsBox" class="detailsBox hidden">
       <h3>Medicine Details</h3>
       <p id="detailsContent"></p>
@@ -57,3 +63,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+
