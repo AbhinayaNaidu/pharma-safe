@@ -1,24 +1,48 @@
-<!-- Search Section -->
-<div id="searchBox" class="hidden">
-  <input type="text" id="searchInput" placeholder="Search medicine..." oninput="searchMedicine()">
-  <select id="medicineSelect" onchange="showMedicineDetails(this.value)">
-    <option value="">-- Select Medicine --</option>
-  </select>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>💊 Pharma Safe</title>
+  <!-- Google Roboto Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>💊 Pharma Safe – Medicine Manager</h1>
 
-  <!-- Filter options -->
-  <div style="margin-top:10px;">
-    <label>Filter: </label>
-    <select id="filterSelect" onchange="filterMedicines()">
-      <option value="all">All</option>
-      <option value="safe">Safe ✅</option>
-      <option value="near">Near Expiry ⚠️</option>
-      <option value="expired">Expired ❌</option>
-    </select>
+    <!-- ACTION BUTTONS -->
+    <div class="actionButtons">
+      <button onclick="toggleBox('addBox')">➕ Add Medicine</button>
+      <button onclick="toggleBox('searchBox')">🔍 Search Medicine</button>
+    </div>
+
+    <!-- ADD MEDICINE BOX -->
+    <div class="box hidden" id="addBox">
+      <h2>Add Medicine</h2>
+      <input type="text" id="name" placeholder="Medicine Name">
+      <input type="date" id="expiry">
+      <input type="number" id="demand" placeholder="Demand">
+      <input type="text" id="offer" placeholder="Offer (optional)">
+      <button onclick="addMedicine()">Add Medicine</button>
+    </div>
+
+    <!-- SEARCH MEDICINE BOX -->
+    <div class="box hidden" id="searchBox">
+      <h2>Search Medicine</h2>
+      <select id="medicineSelect" onchange="showMedicineDetails()">
+        <option value="">-- Select Medicine --</option>
+      </select>
+    </div>
+
+    <!-- DETAILS BOX -->
+    <div id="detailsBox" class="detailsBox hidden">
+      <h3>Medicine Details</h3>
+      <p id="detailsContent"></p>
+    </div>
   </div>
-</div>
 
-<!-- Details Box -->
-<div id="detailsBox" class="hidden">
-  <div id="detailsContent"></div>
-</div>
+  <script src="script.js"></script>
+</body>
+</html>
 
